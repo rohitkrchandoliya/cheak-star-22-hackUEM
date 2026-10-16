@@ -42,7 +42,8 @@ module nft_marketplace::nft {
         let user_addr = address_of(user);
         let mint_info_ref = borrow_global_mut<MintInfo>(MODULE_NFT);
         let cid = mint_info_ref.cid;
-        assert!((cid + count) <= 1000, 3); // Ensure minting limit
+        assert!(count > 0 && count <= 1000, 3); // Require a non-zero, bounded mint count.
+        assert!(cid <= 1000 - count, 3); // Avoid overflow while enforcing the collection cap.
 
         coin::transfer<AptosCoin>(user, MODULE_NFT, 150000000 * count);
 
