@@ -89,7 +89,7 @@ module nft_marketplace::nft {
             vector::push_back(&mut vec_data, 48 as u8);
         }
         while (n > 0) {
-            vector::push_back(&mut vec_data, (n % 10 + 48 as u8));
+            vector::push_back(&mut vec_data, ((n % 10) as u8 + 48 as u8));
             n = n / 10;
         }
         vector::reverse(&mut vec_data);
